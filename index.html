@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>Death Gang | عصابة الموت</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+    margin:0;
+    font-family: Tahoma, Arial;
+    background: linear-gradient(#5b0000, #c10000);
+    color:#fff;
+    text-align:center;
+}
+
+/* ===== الغلاف ===== */
+.header{
+    background:url("20260203_170947.png") center/cover no-repeat;
+    padding:40px 10px;
+}
+.header h1{margin:10px 0 0;font-size:32px;}
+.header h2{margin:5px 0;color:#ffcccc;}
+
+/* ===== العنوان ===== */
+.title-bar{
+    background:#ff0000;
+    padding:10px 20px;
+    font-size:22px;
+    font-weight:bold;
+    display:flex;
+    justify-content:space-between;
+}
+
+/* ===== خط ===== */
+.hr{
+    height:3px;
+    background:repeating-linear-gradient(
+        90deg,
+        #00ffff,
+        #00ffff 10px,
+        transparent 10px,
+        transparent 20px
+    );
+    margin:10px 20px;
+}
+
+/* ===== الأعضاء ===== */
+.members{
+    display:grid;
+    grid-template-columns: repeat(5,1fr);
+    gap:15px;
+    padding:20px;
+}
+
+.member{
+    display:flex;
+    flex-direction:column;
+    align-items:center;   /* ✔️ حل المشكلة */
+    justify-content:flex-start;
+    cursor:pointer;
+}
+
+.avatar{
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    background:#6a00ff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:40px;
+    box-shadow:0 0 10px #000;
+}
+
+.avatar img{
+    width:100%;
+    height:100%;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+.name{
+    margin-top:6px;
+    font-size:14px;
+    color:#ffd700;
+    text-align:center;
+    width:100%;
+    text-shadow:0 0 5px #000;
+}
+
+/* ===== نافذة القائمة ===== */
+.overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.7);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:10;
+}
+
+.menu{
+    background:#6F0055;
+    width:300px;
+    padding:20px;
+    border-radius:15px;
+    position:relative;
+}
+
+.vip{
+    position:absolute;
+    top:10px;
+    right:10px;
+    width:35px;
+    height:35px;
+    border-radius:50%;
+    background:yellow;
+    color:#000;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.stars{
+    color:gold;
+    font-size:20px;
+    margin-bottom:10px;
+}
+
+.menu p{
+    font-size:14px;
+}
+
+/* ===== نافذة VIP ===== */
+.vip-modal{
+    background:#b30000;
+    padding:20px;
+    border-radius:15px;
+    width:300px;
+}
+
+textarea{
+    width:100%;
+    height:80px;
+    resize:none;
+}
+
+button{
+    margin-top:10px;
+    padding:8px 15px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+/* ===== النوافذ ===== */
+.windows{
+    display:grid;
+    grid-template-columns: repeat(4,1fr);
+    gap:15px;
+    padding:20px;
+}
+
+.window{
+    background:#000;
+    padding:25px 5px;
+    border-radius:10px;
+    cursor:pointer;
+    box-shadow:0 0 10px #00ffff;
+}
+
+.add-window{
+    width:70px;
+    height:70px;
+    margin:0 auto 20px;
+    background:#000;
+    border-radius:10px;
+    font-size:40px;
+    line-height:70px;
+    box-shadow:0 0 10px #00ffff;
+}
+
+/* ===== موبايل ===== */
+@media(max-width:768px){
+    .members{grid-template-columns: repeat(3,1fr);}
+    .windows{grid-template-columns: repeat(2,1fr);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- الغلاف -->
+<div class="header">
+    <h1>ۦ</h1>
+    <h2>ۦ</h2>
+</div>
+
+<!-- العنوان -->
+<div class="title-bar">
+    <span>Death Gang</span>
+    <span>عصابة الموت</span>
+</div>
+
+<div class="hr"></div>
+
+<!-- الأعضاء -->
+<div class="members">
+
+    <div class="member" onclick="openMenu()">
+        <div class="avatar"><img src="shadow.png"></div>
+        <div class="name">شادو</div>
+    </div>
+
+    <div class="member" onclick="openMenu()">
+        <div class="avatar"><img src="luffy.png"></div>
+        <div class="name">لوفي</div>
+    </div>
+
+    <div class="member" onclick="openMenu()">
+        <div class="avatar">+</div>
+        <div class="name">---</div>
+    </div>
+
+</div>
+
+<div class="hr"></div>
+
+<!-- النوافذ -->
+<div class="windows">
+    <div class="window" onclick="openIndex('index1.html')">اسم نافذة</div>
+    <div class="window" onclick="openIndex('index2.html')">اسم نافذة</div>
+    <div class="window" onclick="openIndex('index3.html')">اسم نافذة</div>
+    <div class="window" onclick="openIndex('index4.html')">اسم نافذة</div>
+</div>
+
+<div class="add-window">+</div>
+
+<!-- القائمة -->
+<div class="overlay" id="menu">
+    <div class="menu">
+        <div class="vip" onclick="vip()">VIP</div>
+        <div class="stars">★★★★★</div>
+        <p>وصف خاص بالقائمة</p>
+        <button onclick="closeAll()">إغلاق</button>
+    </div>
+</div>
+
+<!-- VIP -->
+<div class="overlay" id="vipBox">
+    <div class="vip-modal">
+        <textarea placeholder="اكتب هنا"></textarea>
+        <button onclick="send('send')">إرسال</button>
+        <button onclick="send('confirm')">✅</button>
+    </div>
+</div>
+
+<script>
+const API = "https://YOUR-RENDER.onrender.com/api";
+
+function openMenu(){
+    document.getElementById("menu").style.display="flex";
+}
+
+function closeAll(){
+    document.getElementById("menu").style.display="none";
+    document.getElementById("vipBox").style.display="none";
+}
+
+function vip(){
+    let p = prompt("كلمة سر VIP");
+    fetch(API+"/vip",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({password:p})
+    })
+    .then(r=>r.json())
+    .then(d=>{
+        if(d.ok){
+            document.getElementById("vipBox").style.display="flex";
+        }else{
+            alert("كلمة السر غير صحيحة");
+        }
+    });
+}
+
+function send(type){
+    fetch(API+"/"+type,{method:"POST"});
+}
+
+function openIndex(p){
+    window.open(p,"_blank");
+}
+</script>
+
+</body>
+  </html>
