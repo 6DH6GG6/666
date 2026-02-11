@@ -2,12 +2,19 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
-<title>Death Gang | عصابة الموت</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Death Gang | عصابة الموت</title>
 
 <style>
-body{
+
+/* ===== ضبط عام لمنع المشاكل ===== */
+*{
+    box-sizing:border-box;
     margin:0;
+    padding:0;
+}
+
+body{
     font-family:Tahoma, Arial;
     background:linear-gradient(#7a0000,#c10000);
     color:#fff;
@@ -17,20 +24,22 @@ body{
 /* ===== صورة الأعلى ===== */
 .header img{
     width:100%;
+    height:auto;
     max-height:280px;
     object-fit:cover;
+    display:block;
 }
 
 /* ===== العنوان ===== */
 .title{
     display:flex;
     justify-content:space-between;
-    padding:15px 20px;
-    font-size:22px;
+    align-items:center;
+    padding:15px;
+    font-size:clamp(16px,4vw,22px);
     font-weight:bold;
 }
 
-/* خط فاصل */
 .line{
     height:4px;
     background:#00eaff;
@@ -40,25 +49,28 @@ body{
 /* ===== الأزرار الدائرية ===== */
 .circle-container{
     display:grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap:20px;
-    padding:20px;
+    grid-template-columns:repeat(auto-fit,minmax(70px,1fr));
+    gap:15px;
+    padding:15px;
+    max-width:600px;
+    margin:auto;
 }
 
 .circle-btn{
-    width:75px;
-    height:75px;
+    width:70px;
+    height:70px;
     border-radius:50%;
     background:linear-gradient(#7b00ff,#4a00aa);
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:32px;
+    font-size:30px;
     cursor:pointer;
     margin:auto;
     transition:0.2s;
     box-shadow:0 0 10px #000;
 }
+
 .circle-btn:hover{
     transform:scale(1.1);
 }
@@ -66,19 +78,22 @@ body{
 /* ===== المربعات ===== */
 .box-container{
     display:grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap:20px;
-    padding:20px;
+    grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+    gap:15px;
+    padding:15px;
+    max-width:700px;
+    margin:auto;
 }
 
 .box-btn{
     background:#000;
-    padding:30px 10px;
+    padding:25px 10px;
     border-radius:15px;
     border:2px solid #444;
     cursor:pointer;
     transition:0.2s;
 }
+
 .box-btn:hover{
     background:#222;
 }
@@ -91,11 +106,12 @@ body{
     display:none;
     align-items:center;
     justify-content:center;
+    padding:15px;
     z-index:999;
 }
 
 .vip-box{
-    width:90%;
+    width:100%;
     max-width:420px;
     background:linear-gradient(180deg,#9b00c9,#6a007a);
     border-radius:25px;
@@ -109,8 +125,8 @@ body{
 }
 
 .vip-circle{
-    width:80px;
-    height:80px;
+    width:70px;
+    height:70px;
     background:#ffeb3b;
     color:#000;
     border-radius:50%;
@@ -118,8 +134,13 @@ body{
     align-items:center;
     justify-content:center;
     font-weight:bold;
-    font-size:22px;
+    font-size:20px;
     cursor:pointer;
+    transition:0.2s;
+}
+
+.vip-circle:hover{
+    transform:scale(1.1);
 }
 
 .vip-name{
@@ -127,28 +148,31 @@ body{
 }
 
 .stars{
-    font-size:22px;
+    font-size:20px;
     margin:15px 0;
 }
 
 .vip-desc{
     margin:15px 0;
+    font-size:15px;
 }
 
 .close-btn{
     background:#000;
     color:#fff;
     border:none;
-    padding:10px 25px;
+    padding:10px 20px;
     border-radius:12px;
     cursor:pointer;
+    margin-top:10px;
 }
+
 </style>
 </head>
 
 <body>
 
-<!-- ===== صورة الأعلى (تستطيع تغيير ggg.png) ===== -->
+<!-- ===== صورة قابلة للتغيير ===== -->
 <div class="header">
     <img src="20260211_003328.png" alt="Death Gang">
 </div>
@@ -197,7 +221,7 @@ body{
     <hr>
 
     <div class="vip-desc" id="vipDesc">
-      وصف محدد من الكود فقط
+      وصف يتم تعديله من داخل الكود
     </div>
 
     <button class="close-btn" onclick="closeMenu()">إغلاق</button>
@@ -217,10 +241,10 @@ function openVIP(){
     window.location.href="vip/index.html";
 }
 
-/* تعديل الاسم والوصف من هنا */
+/* تعديل الاسم والوصف */
 document.getElementById("userName").innerText="Shadow Al-Mard";
 document.getElementById("vipDesc").innerText=
-"هذا وصف خاص يتم تعديله من داخل الكود فقط";
+"هذا وصف خاص يتم التحكم به من الكود فقط";
 </script>
 
 </body>
