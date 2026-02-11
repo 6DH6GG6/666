@@ -46,17 +46,25 @@ body{
     margin:10px 0 20px 0;
 }
 
-/* ===== الأزرار الدائرية ===== */
+/* ===== الأزرار الدائرية مع صورة واسم ===== */
 .circle-container{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(70px,1fr));
-    gap:15px;
+    grid-template-columns:repeat(auto-fit,minmax(80px,1fr));
+    gap:20px;
     padding:15px;
     max-width:600px;
     margin:auto;
 }
 
 .circle-btn{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.circle-inner{
     width:70px;
     height:70px;
     border-radius:50%;
@@ -64,15 +72,21 @@ body{
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:30px;
-    cursor:pointer;
-    margin:auto;
-    transition:0.2s;
+    font-size:28px;
+    position:relative;
+    overflow:hidden;
     box-shadow:0 0 10px #000;
 }
 
-.circle-btn:hover{
-    transform:scale(1.1);
+.circle-inner img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.circle-btn span{
+    margin-top:5px;
+    font-size:14px;
 }
 
 /* ===== المربعات ===== */
@@ -186,12 +200,33 @@ body{
 
 <div class="line"></div>
 
-<!-- ===== الأزرار الدائرية ===== -->
+<!-- ===== الأزرار الدائرية مع صورة واسم ===== -->
 <div class="circle-container">
-    <div class="circle-btn" onclick="openMenu()">+</div>
-    <div class="circle-btn" onclick="openMenu()">+</div>
-    <div class="circle-btn" onclick="openMenu()">+</div>
-    <div class="circle-btn" onclick="openMenu()">+</div>
+    <div class="circle-btn" onclick="openMenu()">
+        <div class="circle-inner">
+            <!-- يمكنك استبدال + بصورة gg.png -->
+            <img src="gg.png" alt="icon">
+        </div>
+        <span>اسم 1</span>
+    </div>
+    <div class="circle-btn" onclick="openMenu()">
+        <div class="circle-inner">
+            <img src="gg.png" alt="icon">
+        </div>
+        <span>اسم 2</span>
+    </div>
+    <div class="circle-btn" onclick="openMenu()">
+        <div class="circle-inner">
+            <img src="gg.png" alt="icon">
+        </div>
+        <span>اسم 3</span>
+    </div>
+    <div class="circle-btn" onclick="openMenu()">
+        <div class="circle-inner">
+            <img src="gg.png" alt="icon">
+        </div>
+        <span>اسم 4</span>
+    </div>
 </div>
 
 <div class="line"></div>
@@ -239,7 +274,6 @@ function closeMenu(){
     document.getElementById("vipMenu").style.display="none";
 }
 
-/* إغلاق عند الضغط خارج الصندوق */
 function outsideClick(e){
     if(e.target.id === "vipMenu"){
         closeMenu();
