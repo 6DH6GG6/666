@@ -7,7 +7,7 @@
 
 <style>
 
-/* ===== ضبط عام لمنع المشاكل ===== */
+/* ===== ضبط عام ===== */
 *{
     box-sizing:border-box;
     margin:0;
@@ -116,6 +116,7 @@ body{
     background:linear-gradient(180deg,#9b00c9,#6a007a);
     border-radius:25px;
     padding:20px;
+    position:relative;
 }
 
 .vip-header{
@@ -174,7 +175,7 @@ body{
 
 <!-- ===== صورة قابلة للتغيير ===== -->
 <div class="header">
-    <img src="20260211_003328.png" alt="Death Gang">
+    <img src="ggg.png" alt="Death Gang">
 </div>
 
 <!-- ===== العنوان ===== -->
@@ -195,16 +196,16 @@ body{
 
 <div class="line"></div>
 
-<!-- ===== المربعات ===== -->
+<!-- ===== المربعات (تفتح مسارات) ===== -->
 <div class="box-container">
-    <div class="box-btn">اسم نافذة</div>
-    <div class="box-btn">اسم نافذة</div>
-    <div class="box-btn">اسم نافذة</div>
-    <div class="box-btn">اسم نافذة</div>
+    <div class="box-btn" onclick="openPage('box1/index.html')">نافذة 1</div>
+    <div class="box-btn" onclick="openPage('box2/index.html')">نافذة 2</div>
+    <div class="box-btn" onclick="openPage('box3/index.html')">نافذة 3</div>
+    <div class="box-btn" onclick="openPage('box4/index.html')">نافذة 4</div>
 </div>
 
 <!-- ===== قائمة VIP ===== -->
-<div id="vipMenu" class="vip-menu">
+<div id="vipMenu" class="vip-menu" onclick="outsideClick(event)">
   <div class="vip-box">
 
     <div class="vip-header">
@@ -229,6 +230,7 @@ body{
 </div>
 
 <script>
+
 function openMenu(){
     document.getElementById("vipMenu").style.display="flex";
 }
@@ -237,14 +239,26 @@ function closeMenu(){
     document.getElementById("vipMenu").style.display="none";
 }
 
+/* إغلاق عند الضغط خارج الصندوق */
+function outsideClick(e){
+    if(e.target.id === "vipMenu"){
+        closeMenu();
+    }
+}
+
 function openVIP(){
     window.location.href="vip/index.html";
 }
 
-/* تعديل الاسم والوصف */
+function openPage(path){
+    window.location.href=path;
+}
+
+/* تعديل البيانات */
 document.getElementById("userName").innerText="Shadow Al-Mard";
 document.getElementById("vipDesc").innerText=
 "هذا وصف خاص يتم التحكم به من الكود فقط";
+
 </script>
 
 </body>
