@@ -6,8 +6,6 @@
 <title>Death Gang | عصابة الموت</title>
 
 <style>
-
-/* ===== ضبط عام ===== */
 *{
     box-sizing:border-box;
     margin:0;
@@ -21,7 +19,7 @@ body{
     text-align:center;
 }
 
-/* ===== صورة الأعلى ===== */
+/* صورة الرأس */
 .header img{
     width:100%;
     height:auto;
@@ -30,7 +28,7 @@ body{
     display:block;
 }
 
-/* ===== العنوان ===== */
+/* العنوان */
 .title{
     display:flex;
     justify-content:space-between;
@@ -46,7 +44,7 @@ body{
     margin:10px 0 20px 0;
 }
 
-/* ===== الأزرار الدائرية مع صورة واسم ===== */
+/* الأزرار الدائرية */
 .circle-container{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(80px,1fr));
@@ -89,7 +87,7 @@ body{
     font-size:14px;
 }
 
-/* ===== المربعات ===== */
+/* المربعات */
 .box-container{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
@@ -112,7 +110,7 @@ body{
     background:#222;
 }
 
-/* ===== قائمة VIP ===== */
+/* القوائم لكل زر */
 .vip-menu{
     position:fixed;
     inset:0;
@@ -181,18 +179,17 @@ body{
     cursor:pointer;
     margin-top:10px;
 }
-
 </style>
 </head>
 
 <body>
 
-<!-- ===== صورة قابلة للتغيير ===== -->
+<!-- صورة الرأس -->
 <div class="header">
     <img src="20260211_003328.png" alt="Death Gang">
 </div>
 
-<!-- ===== العنوان ===== -->
+<!-- العنوان -->
 <div class="title">
     <div>Death Gang</div>
     <div>عصابة الموت</div>
@@ -200,38 +197,29 @@ body{
 
 <div class="line"></div>
 
-<!-- ===== الأزرار الدائرية مع صورة واسم ===== -->
+<!-- الأزرار الدائرية -->
 <div class="circle-container">
-    <div class="circle-btn" onclick="openMenu()">
-        <div class="circle-inner">
-            <!-- يمكنك استبدال + بصورة gg.png -->
-            <img src="gg.png" alt="icon">
-        </div>
+    <div class="circle-btn" onclick="openMenu('vipMenu1')">
+        <div class="circle-inner"><img src="20260211_003328.png" alt="icon"></div>
         <span>اسم 1</span>
     </div>
-    <div class="circle-btn" onclick="openMenu()">
-        <div class="circle-inner">
-            <img src="gg.png" alt="icon">
-        </div>
+    <div class="circle-btn" onclick="openMenu('vipMenu2')">
+        <div class="circle-inner"><img src="20260211_003328.png" alt="icon"></div>
         <span>اسم 2</span>
     </div>
-    <div class="circle-btn" onclick="openMenu()">
-        <div class="circle-inner">
-            <img src="gg.png" alt="icon">
-        </div>
+    <div class="circle-btn" onclick="openMenu('vipMenu3')">
+        <div class="circle-inner"><img src="20260211_003328.png" alt="icon"></div>
         <span>اسم 3</span>
     </div>
-    <div class="circle-btn" onclick="openMenu()">
-        <div class="circle-inner">
-            <img src="gg.png" alt="icon">
-        </div>
+    <div class="circle-btn" onclick="openMenu('vipMenu4')">
+        <div class="circle-inner"><img src="20260211_003328.png" alt="icon"></div>
         <span>اسم 4</span>
     </div>
 </div>
 
 <div class="line"></div>
 
-<!-- ===== المربعات (تفتح مسارات) ===== -->
+<!-- المربعات -->
 <div class="box-container">
     <div class="box-btn" onclick="openPage('box1/index.html')">نافذة 1</div>
     <div class="box-btn" onclick="openPage('box2/index.html')">نافذة 2</div>
@@ -239,60 +227,85 @@ body{
     <div class="box-btn" onclick="openPage('box4/index.html')">نافذة 4</div>
 </div>
 
-<!-- ===== قائمة VIP ===== -->
-<div id="vipMenu" class="vip-menu" onclick="outsideClick(event)">
+<!-- القوائم الخاصة بكل زر دائري -->
+<div id="vipMenu1" class="vip-menu" onclick="outsideClick(event,'vipMenu1')">
   <div class="vip-box">
-
     <div class="vip-header">
       <div class="vip-circle" onclick="openVIP()">VIP</div>
-      <div class="vip-name" id="userName">Shadow</div>
+      <div class="vip-name" id="userName1">Shadow 1</div>
     </div>
-
     <hr>
-
-    <div class="stars">
-      ⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐
-    </div>
-
+    <div class="stars">⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐</div>
     <hr>
+    <div class="vip-desc" id="vipDesc1">وصف القائمة 1</div>
+    <button class="close-btn" onclick="closeMenu('vipMenu1')">إغلاق</button>
+  </div>
+</div>
 
-    <div class="vip-desc" id="vipDesc">
-      وصف يتم تعديله من داخل الكود
+<div id="vipMenu2" class="vip-menu" onclick="outsideClick(event,'vipMenu2')">
+  <div class="vip-box">
+    <div class="vip-header">
+      <div class="vip-circle" onclick="openVIP()">VIP</div>
+      <div class="vip-name" id="userName2">Shadow 2</div>
     </div>
+    <hr>
+    <div class="stars">⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐</div>
+    <hr>
+    <div class="vip-desc" id="vipDesc2">وصف القائمة 2</div>
+    <button class="close-btn" onclick="closeMenu('vipMenu2')">إغلاق</button>
+  </div>
+</div>
 
-    <button class="close-btn" onclick="closeMenu()">إغلاق</button>
+<div id="vipMenu3" class="vip-menu" onclick="outsideClick(event,'vipMenu3')">
+  <div class="vip-box">
+    <div class="vip-header">
+      <div class="vip-circle" onclick="openVIP()">VIP</div>
+      <div class="vip-name" id="userName3">Shadow 3</div>
+    </div>
+    <hr>
+    <div class="stars">⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐</div>
+    <hr>
+    <div class="vip-desc" id="vipDesc3">وصف القائمة 3</div>
+    <button class="close-btn" onclick="closeMenu('vipMenu3')">إغلاق</button>
+  </div>
+</div>
+
+<div id="vipMenu4" class="vip-menu" onclick="outsideClick(event,'vipMenu4')">
+  <div class="vip-box">
+    <div class="vip-header">
+      <div class="vip-circle" onclick="openVIP()">VIP</div>
+      <div class="vip-name" id="userName4">Shadow 4</div>
+    </div>
+    <hr>
+    <div class="stars">⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐</div>
+    <hr>
+    <div class="vip-desc" id="vipDesc4">وصف القائمة 4</div>
+    <button class="close-btn" onclick="closeMenu('vipMenu4')">إغلاق</button>
   </div>
 </div>
 
 <script>
-
-function openMenu(){
-    document.getElementById("vipMenu").style.display="flex";
+function openMenu(id){
+    document.getElementById(id).style.display='flex';
 }
 
-function closeMenu(){
-    document.getElementById("vipMenu").style.display="none";
+function closeMenu(id){
+    document.getElementById(id).style.display='none';
 }
 
-function outsideClick(e){
-    if(e.target.id === "vipMenu"){
-        closeMenu();
+function outsideClick(e,id){
+    if(e.target.id === id){
+        closeMenu(id);
     }
 }
 
 function openVIP(){
-    window.location.href="vip/index.html";
+    window.location.href='vip/index.html';
 }
 
 function openPage(path){
     window.location.href=path;
 }
-
-/* تعديل البيانات */
-document.getElementById("userName").innerText="Shadow Al-Mard";
-document.getElementById("vipDesc").innerText=
-"هذا وصف خاص يتم التحكم به من الكود فقط";
-
 </script>
 
 </body>
