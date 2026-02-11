@@ -2,319 +2,170 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
-<title>Death Gang | عصابة الموت</title>
+<title>Death Gang VIP</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body{
     margin:0;
-    font-family: Tahoma, Arial;
-    background: linear-gradient(#5b0000, #c10000);
+    font-family:Tahoma, Arial;
+    background:#b00000;
     color:#fff;
     text-align:center;
 }
 
-/* ===== الغلاف ===== */
-.header{
-    background:url("20260211_003328.png") center/cover no-repeat;
-    padding:40px 10px;
-}
-.header h1{margin:10px 0 0;font-size:32px;}
-.header h2{margin:5px 0;color:#ffcccc;}
-
-/* ===== العنوان ===== */
-.title-bar{
-    background:#ff0000;
-    padding:10px 20px;
-    font-size:22px;
-    font-weight:bold;
-    display:flex;
-    justify-content:space-between;
-}
-
-/* ===== خط ===== */
-.hr{
-    height:3px;
-    background:repeating-linear-gradient(
-        90deg,
-        #00ffff,
-        #00ffff 10px,
-        transparent 10px,
-        transparent 20px
-    );
-    margin:10px 20px;
-}
-
-/* ===== الأعضاء ===== */
-.members{
-    display:grid;
-    grid-template-columns: repeat(5,1fr);
-    gap:15px;
-    padding:20px;
-}
-
-.member{
-    display:flex;
-    flex-direction:column;
-    align-items:center;   /* ✔️ حل المشكلة */
-    justify-content:flex-start;
-    cursor:pointer;
-}
-
-.avatar{
-    width:70px;
-    height:70px;
+/* زر فتح القائمة */
+.circle-btn{
+    width:80px;
+    height:80px;
     border-radius:50%;
     background:#6a00ff;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:40px;
-    box-shadow:0 0 10px #000;
+    font-size:35px;
+    cursor:pointer;
+    margin:100px auto;
+    transition:0.2s;
+}
+.circle-btn:hover{
+    background:#8a2bff;
+    transform:scale(1.1);
 }
 
-.avatar img{
-    width:100%;
-    height:100%;
-    border-radius:50%;
-    object-fit:cover;
-}
-
-.name{
-    margin-top:6px;
-    font-size:14px;
-    color:#ffd700;
-    text-align:center;
-    width:100%;
-    text-shadow:0 0 5px #000;
-}
-
-/* ===== نافذة القائمة ===== */
-.overlay{
+/* خلفية القائمة */
+.vip-menu{
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,.7);
+    background:rgba(0,0,0,0.6);
     display:none;
     align-items:center;
     justify-content:center;
-    z-index:10;
+    z-index:999;
 }
 
-.menu{
-    background:#6F0055;
-    width:300px;
+/* صندوق القائمة */
+.vip-box{
+    width:90%;
+    max-width:420px;
+    background:linear-gradient(180deg,#9b00c9,#6a007a);
+    color:#fff;
+    border-radius:25px;
     padding:20px;
-    border-radius:15px;
-    position:relative;
+    text-align:center;
 }
 
-.vip{
-    position:absolute;
-    top:10px;
-    right:10px;
-    width:35px;
-    height:35px;
-    border-radius:50%;
-    background:yellow;
-    color:#000;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-.stars{
-    color:gold;
-    font-size:20px;
-    margin-bottom:10px;
-}
-
-.menu p{
-    font-size:14px;
-}
-
-/* ===== نافذة VIP ===== */
-.vip-modal{
-    background:#b30000;
-    padding:20px;
-    border-radius:15px;
-    width:300px;
-}
-
-textarea{
-    width:100%;
-    height:80px;
-    resize:none;
-}
-
-button{
-    margin-top:10px;
-    padding:8px 15px;
-    border:none;
-    border-radius:8px;
-    cursor:pointer;
-    font-weight:bold;
-}
-
-/* ===== النوافذ ===== */
-.windows{
-    display:grid;
-    grid-template-columns: repeat(4,1fr);
+/* الرأس */
+.vip-header{
+    display:flex;
+    align-items:center;
     gap:15px;
-    padding:20px;
 }
 
-.window{
-    background:#000;
-    padding:25px 5px;
-    border-radius:10px;
+/* زر VIP (يفتح مسار) */
+.vip-circle{
+    width:80px;
+    height:80px;
+    background:#ffeb3b;
+    color:#000;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+    font-size:22px;
     cursor:pointer;
-    box-shadow:0 0 10px #00ffff;
+    transition:0.2s;
+}
+.vip-circle:hover{
+    transform:scale(1.1);
 }
 
-.add-window{
-    width:70px;
-    height:70px;
-    margin:0 auto 20px;
+/* الاسم */
+.vip-name{
+    font-size:18px;
+}
+
+/* النجوم */
+.stars{
+    font-size:22px;
+    margin:15px 0;
+}
+
+/* الوصف */
+.vip-desc{
+    font-size:16px;
+    margin:15px 0;
+}
+
+/* زر إغلاق */
+.close-btn{
     background:#000;
-    border-radius:10px;
-    font-size:40px;
-    line-height:70px;
-    box-shadow:0 0 10px #00ffff;
-}
-
-/* ===== موبايل ===== */
-@media(max-width:768px){
-    .members{grid-template-columns: repeat(3,1fr);}
-    .windows{grid-template-columns: repeat(2,1fr);}
+    color:#fff;
+    border:none;
+    padding:10px 25px;
+    border-radius:12px;
+    cursor:pointer;
+    margin-top:10px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- الغلاف -->
-<div class="header">
-    <h1>ٰ
+<!-- زر دائري -->
+<div class="circle-btn" onclick="openMenu()">+</div>
 
+<!-- قائمة VIP -->
+<div id="vipMenu" class="vip-menu">
+  <div class="vip-box">
 
-
-
-
-
-
-
-
-
-ٰ</h1>
-    <h2>ٰ
-
-
-
-
-
-
-
-
-
-
-ٰ</h2>
-</div>
-
-<!-- العنوان -->
-<div class="title-bar">
-    <span>Death Gang</span>
-    <span>عصابة الموت</span>
-</div>
-
-<div class="hr"></div>
-
-<!-- الأعضاء -->
-<div class="members">
-
-    <div class="member" onclick="openMenu()">
-        <div class="avatar"><img src="shadow.png"></div>
-        <div class="name">شادو</div>
+    <!-- رأس -->
+    <div class="vip-header">
+      <!-- زر VIP يفتح مسار -->
+      <div class="vip-circle" onclick="openVIP()">VIP</div>
+      <div class="vip-name" id="userName">Death Shadow</div>
     </div>
 
-    <div class="member" onclick="openMenu()">
-        <div class="avatar"><img src="luffy.png"></div>
-        <div class="name">لوفي</div>
+    <hr>
+
+    <!-- نجوم -->
+    <div class="stars">
+      ⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐
     </div>
 
-    <div class="member" onclick="openMenu()">
-        <div class="avatar">+</div>
-        <div class="name">---</div>
+    <hr>
+
+    <!-- وصف -->
+    <div class="vip-desc" id="vipDesc">
+      هذا وصف ثابت يتم التحكم به من داخل الكود فقط
     </div>
 
-</div>
-
-<div class="hr"></div>
-
-<!-- النوافذ -->
-<div class="windows">
-    <div class="window" onclick="openIndex('index1.html')">اسم نافذة</div>
-    <div class="window" onclick="openIndex('index2.html')">اسم نافذة</div>
-    <div class="window" onclick="openIndex('index3.html')">اسم نافذة</div>
-    <div class="window" onclick="openIndex('index4.html')">اسم نافذة</div>
-</div>
-
-<div class="add-window">+</div>
-
-<!-- القائمة -->
-<div class="overlay" id="menu">
-    <div class="menu">
-        <div class="vip" onclick="vip()">VIP</div>
-        <div class="stars">★★★★★</div>
-        <p>وصف خاص بالقائمة</p>
-        <button onclick="closeAll()">إغلاق</button>
-    </div>
-</div>
-
-<!-- VIP -->
-<div class="overlay" id="vipBox">
-    <div class="vip-modal">
-        <textarea placeholder="اكتب هنا"></textarea>
-        <button onclick="send('send')">إرسال</button>
-        <button onclick="send('confirm')">✅</button>
-    </div>
+    <button class="close-btn" onclick="closeMenu()">إغلاق</button>
+  </div>
 </div>
 
 <script>
-const API = "https://YOUR-RENDER.onrender.com/api";
-
+/* فتح القائمة */
 function openMenu(){
-    document.getElementById("menu").style.display="flex";
+    document.getElementById("vipMenu").style.display="flex";
 }
 
-function closeAll(){
-    document.getElementById("menu").style.display="none";
-    document.getElementById("vipBox").style.display="none";
+/* إغلاق القائمة */
+function closeMenu(){
+    document.getElementById("vipMenu").style.display="none";
 }
 
-function vip(){
-    let p = prompt("كلمة سر VIP");
-    fetch(API+"/vip",{
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({password:p})
-    })
-    .then(r=>r.json())
-    .then(d=>{
-        if(d.ok){
-            document.getElementById("vipBox").style.display="flex";
-        }else{
-            alert("كلمة السر غير صحيحة");
-        }
-    });
+/* زر VIP يفتح مسار index آخر */
+function openVIP(){
+    window.location.href = "vip/index.html";
 }
 
-function send(type){
-    fetch(API+"/"+type,{method:"POST"});
-}
-
-function openIndex(p){
-    window.open(p,"_blank");
-}
+/* تعديل البيانات من هنا */
+document.getElementById("userName").innerText = "Shadow Al-Mard";
+document.getElementById("vipDesc").innerText =
+"وصف مخصص يتم تحديده من داخل الكود فقط";
 </script>
 
 </body>
-  </html>
+</html>
