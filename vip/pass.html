@@ -1,70 +1,189 @@
-import express from "express";
-import fetch from "node-fetch";
-import path from "path";
-import { fileURLToPath } from "url";
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>VIP</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-const app = express();
-app.use(express.json());
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Tahoma,Arial}
 
-/* ===== دعم Render للملفات ===== */
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-app.use(express.static(__dirname));
+/* ===== شاشة كلمة السر (الصفراء) ===== */
+#login{
+    position:fixed;
+    inset:0;
+    background:#ffef3b;
+    text-align:center;
+}
 
-/* ===== ENV ===== */
-const REAL_PASS = process.env.VIP_PASS;
-const BOT_TOKEN = process.env.BOT_TOKEN;
-const CHAT_ID = process.env.CHAT_ID;
+#login h3{
+    margin-top:40px;
+    color:#444;
+    font-size:20px;
+}
 
-/* ===== تحقق ===== */
-app.post("/VIP_PASS", async (req, res) => {
-  const { password } = req.body;
-  const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
+#login input{
+    margin-top:25px;
+    width:85%;
+    max-width:420px;
+    height:45px;
+    font-size:18px;
+    border:none;
+    padding:10px;
+    outline:none;
+}
 
-  if (password === REAL_PASS) {
-    return res.json({ ok: true });
-  }
+#login button{
+    margin-top:25px;
+    background:red;
+    color:yellow;
+    border:none;
+    padding:15px 45px;
+    font-size:20px;
+    border-radius:30px;
+    cursor:pointer;
+}
 
-  // تنبيه تلغرام عند الخطأ
-  const text =
-`🚨 محاولة فاشلة
-🔑 كلمة السر: ${password}
-🌐 IP: ${ip}`;
+#error-msg{
+    margin-top:10px;
+    color:red;
+    display:none;
+}
 
-  await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      chat_id: CHAT_ID,
-      text
+#vip-bg{
+    position:absolute;
+    bottom:20px;
+    width:100%;
+    font-size:200px;
+    font-weight:bold;
+    color:rgba(255,255,0,0.35);
+}
+
+/* ===== شاشة النجاح (الأرجوانية) ===== */
+#success{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:linear-gradient(180deg,#9b00ff,#4a005c);
+    color:white;
+    text-align:center;
+}
+
+#success h2{
+    margin-top:35px;
+    color:#ffd700;
+}
+
+#success p{
+    margin-top:10px;
+}
+
+#success textarea{
+    margin-top:25px;
+    width:85%;
+    max-width:420px;
+    height:160px;
+    background:#7b004f;
+    border:none;
+    color:white;
+    font-size:16px;
+    padding:12px;
+    outline:none;
+    resize:none;
+}
+
+#success .send{
+    margin-top:20px;
+    background:red;
+    color:white;
+    border:none;
+    padding:15px 50px;
+    font-size:18px;
+    border-radius:30px;
+    cursor:pointer;
+}
+
+#success .check{
+    margin-top:25px;
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    background:green;
+    border:none;
+    font-size:45px;
+    color:white;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===== شاشة كلمة السر ===== -->
+<div id="login">
+    <h3>ادخل كلمة السر لإكمال إجراءات التحقق</h3>
+
+    <input type="password" id="pass">
+
+    <div id="error-msg">كلمة سر خاطئة</div>
+
+    <br>
+    <button onclick="goNext()">تسجيل الدخول</button>
+
+    <div id="vip-bg">VIP</div>
+</div>
+
+<!-- ===== شاشة النجاح ===== -->
+<div id="success">
+    <h2>🎉 تم تحقق بنجاح</h2>
+    <p>يمكنك كتابة وصف وإرساله لشادو ^^</p>
+
+    <textarea id="desc" maxlength="50"></textarea>
+
+    <br>
+    <button class="send" onclick="sendDesc(false)">إرسال</button>
+
+    <br>
+    <button class="check" onclick="sendDesc(true)">✓</button>
+</div>
+
+<script>
+function goNext(){
+    const pass = document.getElementById("pass").value;
+    const error = document.getElementById("error-msg");
+
+    error.style.display = "none";
+
+    fetch("/VIP_PASS", {
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body:JSON.stringify({ password: pass })
     })
-  });
-
-  return res.status(401).json({ ok: false });
-});
-
-/* ===== إرسال الوصف ===== */
-app.post("/send-to-bot", async (req, res) => {
-  const { message } = req.body;
-
-  const text = message && message.length
-    ? `📩 وصف جديد:\n${message.slice(0,50)}`
-    : "✅ تم الضغط على زر ✓ بدون وصف";
-
-  await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      chat_id: CHAT_ID,
-      text
+    .then(res=>{
+        if(!res.ok) throw "err";
+        return res.json();
     })
-  });
+    .then(data=>{
+        if(data.ok){
+            document.getElementById("login").style.display="none";
+            document.getElementById("success").style.display="block";
+        }
+    })
+    .catch(()=>{
+        error.style.display="block";
+    });
+}
 
-  res.json({ ok: true });
-});
+function sendDesc(empty){
+    const text = empty ? "" : document.getElementById("desc").value.slice(0,50);
 
-/* ===== Render PORT ===== */
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log("🚀 Server running on port", PORT);
-});
+    fetch("/send-to-bot", {
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body:JSON.stringify({ message: text })
+    });
+}
+</script>
+
+</body>
+</html>
