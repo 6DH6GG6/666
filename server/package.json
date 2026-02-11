@@ -1,7 +1,7 @@
 {
   "name": "vip-pass-server",
   "version": "1.0.0",
-  "description": "سيرفر للتحقق من كلمات السر VIP مع إشعارات Telegram",
+  "description": "",
   "main": "server.js",
   "type": "module",
   "scripts": {
