@@ -2,66 +2,101 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>تحقق</title>
+<title>VIP</title>
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
 <style>
-body{
-    margin:0;
-    height:100vh;
-    background:#ffef3b;
-    font-family:Arial;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-.box{
-    width:90%;
-    max-width:400px;
-    text-align:center;
-}
-input{
+*{margin:0;padding:0;box-sizing:border-box;}
+
+html,body{
     width:100%;
-    padding:15px;
-    font-size:18px;
-    border:none;
+    height:100%;
+    overflow:hidden;
+    touch-action:none;
 }
-button{
-    margin-top:20px;
-    background:red;
-    color:white;
-    border:none;
-    padding:15px 40px;
+
+body{
+    background:#ffef3b;
+    font-family:Tahoma, Arial;
+    position:relative;
+}
+
+.title{
+    position:absolute;
+    top:40px;
+    width:100%;
+    text-align:center;
     font-size:20px;
-    border-radius:25px;
+    color:#333;
 }
-.error{
-    margin-top:10px;
-    color:red;
-    display:none;
+
+.input-box{
+    position:absolute;
+    top:110px;
+    left:50%;
+    transform:translateX(-50%);
+    width:80%;
+    max-width:420px;
+}
+
+.input-box input{
+    width:100%;
+    height:45px;
+    border:none;
+    font-size:18px;
+    padding:10px;
+    outline:none;
+}
+
+.login-btn{
+    position:absolute;
+    top:180px;
+    left:50%;
+    transform:translateX(-50%);
+    background:red;
+    color:yellow;
+    border:none;
+    padding:15px 50px;
+    font-size:20px;
+    border-radius:30px;
+    cursor:pointer;
+}
+
+.vip-bg{
+    position:absolute;
+    bottom:20px;
+    width:100%;
+    text-align:center;
+    font-size:200px;
+    font-weight:bold;
+    color:rgba(255,255,0,0.35);
+    pointer-events:none;
 }
 </style>
 </head>
+
 <body>
 
-<div class="box">
-    <h3>ادخل كلمة السر لإكمال إجراءات التحقق</h3>
-    <input type="password" id="pass">
-    <div class="error" id="err">كلمة السر غير صحيحة</div>
-    <button onclick="check()">تسجيل الدخول</button>
+<div class="title">
+    ادخل كلمة السر لإكمال إجراءات التحقق
 </div>
 
+<div class="input-box">
+    <input type="password" id="pass">
+</div>
+
+<button class="login-btn" onclick="goNext()">
+    تسجيل الدخول
+</button>
+
+<div class="vip-bg">VIP</div>
+
 <script>
-async function check(){
-    const res = await fetch("/check",{
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({password:pass.value})
-    });
-    const data = await res.json();
-    if(data.ok){
-        location.href="/success.html";
-    }else{
-        document.getElementById("err").style.display="block";
-    }
+function goNext(){
+    // مثال: الذهاب لصفحة النجاح
+    location.href = "../success.html";
 }
 </script>
 
