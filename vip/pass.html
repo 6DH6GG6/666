@@ -1,151 +1,3 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<title>VIP</title>
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-<style>
-*{margin:0;padding:0;box-sizing:border-box;}
-
-html,body{
-    width:100%;
-    height:100%;
-    overflow:hidden;
-    font-family:Tahoma, Arial;
-}
-
-body{
-    background:linear-gradient(180deg,#8a00c2,#4b005f);
-    color:#fff;
-    position:relative;
-}
-
-/* ===== شاشة كلمة السر ===== */
-#login{
-    position:absolute;
-    inset:0;
-}
-
-.title{
-    margin-top:40px;
-    text-align:center;
-    font-size:22px;
-}
-
-.input-box{
-    margin:40px auto 0;
-    width:80%;
-    max-width:420px;
-}
-
-.input-box input{
-    width:100%;
-    height:45px;
-    border:none;
-    font-size:18px;
-    padding:10px;
-    outline:none;
-}
-
-#error{
-    margin-top:8px;
-    color:#ff4d4d;
-    font-size:14px;
-    display:none;
-}
-
-.login-btn{
-    margin:30px auto 0;
-    display:block;
-    background:red;
-    color:#ff0;
-    border:none;
-    padding:15px 50px;
-    font-size:20px;
-    border-radius:30px;
-    cursor:pointer;
-}
-
-/* ===== شاشة النجاح ===== */
-#success{
-    display:none;
-    position:absolute;
-    inset:0;
-    text-align:center;
-}
-
-.success-title{
-    margin-top:40px;
-    font-size:26px;
-    color:#ffd700;
-}
-
-textarea{
-    margin-top:30px;
-    width:80%;
-    max-width:420px;
-    height:140px;
-    font-size:16px;
-    padding:10px;
-    border:none;
-    outline:none;
-    resize:none;
-}
-
-.send-btn{
-    margin-top:20px;
-    background:red;
-    color:white;
-    border:none;
-    padding:12px 40px;
-    font-size:18px;
-    border-radius:25px;
-    cursor:pointer;
-}
-
-.check-btn{
-    margin-top:25px;
-    width:90px;
-    height:90px;
-    border-radius:50%;
-    background:green;
-    color:white;
-    font-size:45px;
-    border:none;
-    cursor:pointer;
-}
-</style>
-</head>
-
-<body>
-
-<!-- ===== تسجيل الدخول ===== -->
-<div id="login">
-    <div class="title">ادخل كلمة السر لإكمال إجراءات التحقق</div>
-
-    <div class="input-box">
-        <input type="password" id="password" placeholder="كلمة السر">
-        <div id="error">كلمة سر خاطئة</div>
-    </div>
-
-    <button class="login-btn" onclick="checkPass()">تسجيل الدخول</button>
-</div>
-
-<!-- ===== النجاح ===== -->
-<div id="success">
-    <div class="success-title">🎉 تم التحقق بنجاح</div>
-
-    <textarea id="desc" maxlength="50" placeholder="اكتب الوصف (حد أقصى 50 حرف)"></textarea>
-
-    <br>
-    <button class="send-btn" onclick="sendDesc()">إرسال</button>
-
-    <br>
-    <button class="check-btn" onclick="sendDesc(true)">✓</button>
-</div>
-
 <script>
 function checkPass(){
     const pass = document.getElementById("password").value;
@@ -153,16 +5,17 @@ function checkPass(){
 
     error.style.display = "none";
 
-    fetch("/check-password", {
+    fetch("/VIP_PASS", {
         method: "POST",
-        headers: {"Content-Type":"application/json"},
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ password: pass })
     })
-    .then(r => r.json())
     .then(res => {
-        if(!res.ok){
-            error.style.display = "block";
-        }else{
+        if (!res.ok) throw new Error("wrong");
+        return res.json();
+    })
+    .then(data => {
+        if (data.ok) {
             document.getElementById("login").style.display = "none";
             document.getElementById("success").style.display = "block";
         }
@@ -173,18 +26,12 @@ function checkPass(){
 }
 
 function sendDesc(empty=false){
-    let text = "";
-    if(!empty){
-        text = document.getElementById("desc").value.slice(0,50);
-    }
+    const text = empty ? "" : document.getElementById("desc").value.slice(0,50);
 
     fetch("/send-to-bot", {
         method: "POST",
-        headers: {"Content-Type":"application/json"},
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: text })
     });
 }
 </script>
-
-</body>
-</html>
