@@ -29,13 +29,34 @@ html,body{
 }
 #splash.hidden{opacity:0;visibility:hidden;pointer-events:none;}
 
-.splash-sky{
+.splash-bg{
   position:absolute;inset:0;
-  background:radial-gradient(ellipse at 50% 30%, #ff85c2 0%, #d63fa0 25%, #7a0050 55%, #1a0020 100%);
+  background:
+    radial-gradient(ellipse at 20% 20%, #ff9ecb55 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 10%, #c084fc44 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 80%, #fb7185aa 0%, transparent 55%),
+    linear-gradient(160deg, #1a0030 0%, #0d0018 40%, #1a000a 100%);
   z-index:0;
 }
 
-.splash-particles{position:absolute;inset:0;z-index:1;pointer-events:none;}
+.splash-blobs{
+  position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden;
+}
+.blob{
+  position:absolute;border-radius:50%;filter:blur(60px);
+  animation:blobFloat ease-in-out infinite;
+  opacity:.35;
+}
+.blob1{width:280px;height:280px;background:#ff4d9e;top:-60px;right:-60px;animation-duration:8s;}
+.blob2{width:220px;height:220px;background:#c084fc;bottom:-40px;left:-40px;animation-duration:10s;animation-delay:-3s;}
+.blob3{width:180px;height:180px;background:#fb7185;top:40%;left:60%;animation-duration:7s;animation-delay:-5s;}
+@keyframes blobFloat{
+  0%,100%{transform:translate(0,0) scale(1);}
+  33%{transform:translate(20px,-20px) scale(1.05);}
+  66%{transform:translate(-15px,15px) scale(.95);}
+}
+
+.splash-particles{position:absolute;inset:0;z-index:2;pointer-events:none;}
 .sp{
   position:absolute;
   border-radius:50%;
@@ -110,96 +131,109 @@ html,body{
   position:relative;z-index:5;
   display:flex;flex-direction:column;
   align-items:center;
-  gap:20px;
+  gap:28px;
   margin-bottom:30px;
   padding:0 24px;
 }
 
-.glitch-wrap{text-align:center;position:relative;}
-.glitch-line{
-  display:block;
-  font-size:clamp(1.1rem,5vw,1.9rem);
-  font-weight:900;
-  color:#ffe0f0;
-  text-shadow:0 0 20px #ff69b4cc, 0 0 40px #ff1493aa;
+.splash-logo-wrap{
+  display:flex;flex-direction:column;align-items:center;gap:16px;
+}
+
+.splash-icon-ring{
   position:relative;
-  line-height:1.6;
+  width:110px;height:110px;
+  display:flex;align-items:center;justify-content:center;
+}
+.splash-icon-ring::before{
+  content:'';
+  position:absolute;inset:0;
+  border-radius:50%;
+  border:2px solid transparent;
+  background:linear-gradient(#0d0010,#0d0010) padding-box,
+              linear-gradient(135deg,#ff4d9e,#c084fc,#fb7185,#ff4d9e) border-box;
+  animation:ringRotate 6s linear infinite;
+}
+.splash-icon-ring::after{
+  content:'';
+  position:absolute;inset:6px;
+  border-radius:50%;
+  border:1px solid #ff4d9e33;
+}
+@keyframes ringRotate{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+.splash-main-icon{
+  font-size:3.2rem;
+  filter:drop-shadow(0 0 18px #ff69b4) drop-shadow(0 0 36px #ff1493);
+  animation:iconPulse 3s ease-in-out infinite;
+  position:relative;z-index:1;
+}
+@keyframes iconPulse{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.1);}
+}
+
+.splash-title{
+  font-size:clamp(1.5rem,5.5vw,2.2rem);
+  font-weight:900;
+  color:#fff;
+  text-align:center;
   letter-spacing:1px;
+  line-height:1.4;
+  text-shadow:0 2px 20px #ff4d9e66;
 }
-.glitch-line.gl1{animation:glitch1 3.5s infinite;}
-.glitch-line.gl2{animation:glitch2 4s infinite .4s;}
-.glitch-line.gl3{animation:glitch3 3s infinite .8s; font-size:clamp(.9rem,3.5vw,1.4rem); color:#ffb3d9;}
-.glitch-line.gl4{animation:glitch4 5s infinite 1.2s; font-size:clamp(.85rem,3vw,1.2rem); color:#ff85c2; letter-spacing:3px;}
-
-@keyframes glitch1{
-  0%,90%,100%{text-shadow:0 0 20px #ff69b4cc,0 0 40px #ff1493aa;transform:none;}
-  91%{text-shadow:-3px 0 #ff0055,3px 0 #00ffcc;transform:skewX(-5deg);}
-  92%{text-shadow:3px 0 #ff0055,-3px 0 #00ffcc;transform:skewX(5deg);}
-  93%{text-shadow:0 0 20px #ff69b4cc;transform:none;}
-  94%{text-shadow:-2px 0 #ff69b4,2px 0 #ffaacc;transform:translateX(-2px);}
-  95%{transform:none;text-shadow:0 0 20px #ff69b4cc,0 0 40px #ff1493aa;}
-}
-@keyframes glitch2{
-  0%,85%,100%{text-shadow:0 0 16px #ff69b499;transform:none;}
-  86%{text-shadow:2px 0 #ff0080,-2px 0 #ff69b4;transform:translateX(3px);}
-  87%{text-shadow:-2px 0 #ff0080;transform:translateX(-3px);}
-  88%{text-shadow:0 0 16px #ff69b499;transform:none;}
-  89%{transform:scaleX(1.02);}
-  90%{transform:none;}
-}
-@keyframes glitch3{
-  0%,80%,100%{opacity:1;transform:none;}
-  81%{opacity:.4;transform:translateY(-2px);}
-  82%{opacity:1;transform:none;}
-  83%{letter-spacing:5px;opacity:.7;}
-  84%{letter-spacing:3px;opacity:1;}
-}
-@keyframes glitch4{
-  0%,75%,100%{opacity:1;}
-  76%{opacity:0;}
-  77%{opacity:1;}
-  78%{opacity:.5;transform:translateX(4px);}
-  79%{opacity:1;transform:none;}
+.splash-sub{
+  font-size:clamp(.85rem,3vw,1rem);
+  color:#ffb3d988;
+  text-align:center;
+  letter-spacing:2px;
+  font-weight:400;
 }
 
-.splash-rose{
-  font-size:clamp(2.5rem,10vw,4rem);
-  filter:drop-shadow(0 0 20px #ff69b4) drop-shadow(0 0 40px #ff1493);
-  animation:rosePulse 2s ease-in-out infinite;
+.splash-divider{
+  width:80px;height:1px;
+  background:linear-gradient(90deg,transparent,#ff4d9e88,transparent);
 }
-@keyframes rosePulse{
-  0%,100%{transform:scale(1) rotate(-5deg);filter:drop-shadow(0 0 20px #ff69b4) drop-shadow(0 0 40px #ff1493);}
-  50%{transform:scale(1.1) rotate(5deg);filter:drop-shadow(0 0 30px #ff69b4) drop-shadow(0 0 60px #ff1493);}
+
+.splash-hint{
+  font-size:.85rem;
+  color:#ffb3d966;
+  text-align:center;
+  letter-spacing:1px;
 }
 
 #splash-btn{
-  width:75px;height:75px;
+  width:72px;height:72px;
   border-radius:50%;
-  border:2.5px solid #ff69b4;
-  background:radial-gradient(circle at 40% 35%,#5a0030,#1a0015);
-  color:#ffb3d9;
-  font-size:1.8rem;
+  border:none;
+  background:linear-gradient(135deg,#ff4d9e,#c084fc,#fb7185);
+  color:#fff;
+  font-size:1.6rem;
   display:flex;align-items:center;justify-content:center;
   cursor:pointer;
-  box-shadow:0 0 28px #ff69b466,inset 0 0 18px #ff006688;
+  box-shadow:0 8px 32px #ff4d9e66, 0 0 0 0 #ff4d9e44;
   outline:none;
   transition:box-shadow .2s,transform .2s;
   position:relative;
+  animation:btnGlow 2.5s ease-in-out infinite;
+}
+@keyframes btnGlow{
+  0%,100%{box-shadow:0 8px 32px #ff4d9e66, 0 0 0 0 #ff4d9e44;}
+  50%{box-shadow:0 8px 40px #ff4d9e99, 0 0 0 12px #ff4d9e11;}
 }
 #splash-btn::before{
-  content:'';position:absolute;inset:-5px;border-radius:50%;
-  border:1px solid #ff69b433;animation:rippleSplash 2s linear infinite;
+  content:'';position:absolute;inset:-6px;border-radius:50%;
+  border:1.5px solid #ff4d9e44;animation:rippleSplash 2.2s linear infinite;
 }
 #splash-btn::after{
-  content:'';position:absolute;inset:-12px;border-radius:50%;
-  border:1px solid #ff69b422;animation:rippleSplash 2s linear infinite .6s;
+  content:'';position:absolute;inset:-14px;border-radius:50%;
+  border:1px solid #ff4d9e22;animation:rippleSplash 2.2s linear infinite .7s;
 }
 @keyframes rippleSplash{
-  0%{transform:scale(1);opacity:.8;}
-  100%{transform:scale(1.4);opacity:0;}
+  0%{transform:scale(1);opacity:.7;}
+  100%{transform:scale(1.5);opacity:0;}
 }
-#splash-btn:hover{box-shadow:0 0 42px #ff69b4aa,inset 0 0 24px #ff006699;}
-#splash-btn:active{transform:scale(.93);}
+#splash-btn:hover{transform:scale(1.07);}
+#splash-btn:active{transform:scale(.94);}
 
 #loader-screen{
   position:fixed;inset:0;z-index:9998;
@@ -294,13 +328,6 @@ html,body{
 .menu-card:active{transform:scale(.97);}
 .menu-card-icon{font-size:2rem;line-height:1;}
 .menu-card-label{font-size:.92rem;font-weight:700;color:#ffd6e7dd;line-height:1.3;}
-.menu-card-badge{
-  position:absolute;top:10px;left:10px;
-  background:#ff2e2e;color:#fff;
-  font-size:.68rem;font-weight:900;
-  border-radius:99px;padding:1px 7px;
-  min-width:20px;text-align:center;
-}
 
 #notif-fab{
   position:fixed;
@@ -410,71 +437,6 @@ html,body{
 }
 #section-content{flex:1;padding:24px 16px 60px;position:relative;z-index:1;}
 
-/* ══ 404 Page ══ */
-.page-404{
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  min-height:60vh;
-  text-align:center;
-  padding:40px 20px;
-  gap:0;
-}
-.page-404-glitch{
-  position:relative;
-  font-size:clamp(5rem,22vw,9rem);
-  font-weight:900;
-  color:#ff0066;
-  text-shadow:0 0 30px #ff006688, 0 0 60px #ff006644;
-  line-height:1;
-  margin-bottom:8px;
-  animation:err404Glitch 4s infinite;
-}
-@keyframes err404Glitch{
-  0%,88%,100%{text-shadow:0 0 30px #ff006688,0 0 60px #ff006644;transform:none;}
-  89%{text-shadow:-5px 0 #ff69b4,5px 0 #00ffcc;transform:skewX(-8deg);}
-  90%{text-shadow:5px 0 #ff69b4,-5px 0 #00ffcc;transform:skewX(8deg);}
-  91%{text-shadow:0 0 30px #ff006688;transform:none;}
-  92%{text-shadow:-3px 0 #ff0066,3px 0 #ffaacc;transform:translateX(-4px);}
-  93%{transform:none;text-shadow:0 0 30px #ff006688,0 0 60px #ff006644;}
-}
-.page-404-sub{
-  font-size:clamp(1rem,3.5vw,1.4rem);
-  font-weight:700;
-  color:#ff85c2;
-  letter-spacing:2px;
-  margin-bottom:20px;
-  opacity:.85;
-}
-.page-404-file{
-  display:inline-block;
-  background:#1a0008;
-  border:1px solid #ff2e2e55;
-  border-radius:10px;
-  padding:8px 18px;
-  font-size:.85rem;
-  color:#ff8fab77;
-  font-family:monospace;
-  direction:ltr;
-  margin-bottom:28px;
-  box-shadow:inset 0 0 12px #ff006622;
-}
-.page-404-msg{
-  font-size:.9rem;
-  color:#ff8fab55;
-  line-height:1.8;
-  max-width:280px;
-}
-.page-404-rose{
-  font-size:3rem;
-  margin-bottom:16px;
-  filter:drop-shadow(0 0 14px #ff69b466);
-  animation:roseSpin 6s ease-in-out infinite;
-}
-@keyframes roseSpin{
-  0%,100%{transform:rotate(-10deg) scale(1);}
-  50%{transform:rotate(10deg) scale(1.1);}
-}
-
 @media(max-width:360px){
   .menu-grid{gap:10px;}
   .menu-card{padding:18px 10px 14px;}
@@ -486,32 +448,33 @@ html,body{
 <body>
 
 <audio id="bg-audio" loop preload="auto">
-  <source src="⚜️F⚜️I⚜️L⚜️E⚜️S⚜️/⚜️🎶⚜️/🎵T🎵H🎵R🎵.ogg" type="audio/ogg"/>
+  <source src="https://raw.githubusercontent.com/FDH-repo/FDH-repo/main/%F0%9F%8E%B6T%F0%9F%8E%B6H%F0%9F%8E%B6R.ogg" type="audio/ogg"/>
 </audio>
 <canvas id="stars-global"></canvas>
 
-<!-- ══ SPLASH ══ -->
 <div id="splash">
-  <div class="splash-sky"></div>
+  <div class="splash-bg"></div>
+  <div class="splash-blobs">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
+  </div>
   <div class="splash-particles" id="splash-particles"></div>
 
   <div class="splash-center">
-    <div class="splash-rose">🌸</div>
-
-    <div class="glitch-wrap">
-      <span class="glitch-line gl4">🔱 أهلا بك عزيزي المشاهد 🔱</span>
-      <span class="glitch-line gl2">♤</span>
-      <span class="glitch-line gl1">هاذا المكان لدار دعارة تعرض فيه مؤخرة جلجامشة الخانزة 🤧 وزب شادو الذي اخترق أحشائها 🫢</span>
-      <span class="glitch-line gl2">♤</span>
-      <span class="glitch-line gl1">مجرد بليدية ذات مصدر كورونا في الجزائر تثرثر وتنبح على منصات تواصل اجتماعي وتقلك انا هاكر 💩</span>
-      <span class="glitch-line gl2">♤</span>
-      <span class="glitch-line gl1">🔍 باقي المعلومات سا تجدونها داخل الموقع 🔍</span>
-      <span class="glitch-line gl1">إضغط على زر 🔥 للمتابعة</span>
+    <div class="splash-logo-wrap">
+      <div class="splash-icon-ring">
+        <span class="splash-main-icon">🌸</span>
+      </div>
+      <h1 class="splash-title">جلجامشة الوردية</h1>
+      <p class="splash-sub">هاذا المكان يعرض فيه طيز جلجامشة 🍑🤧 وزب شادو 🥒 الذي يخترق احشائها 🫢🔥</p>
     </div>
 
-    <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
-      <button id="splash-btn" aria-label="">🔥</button>
-      <span class="glitch-line gl1"></span>
+    <div class="splash-divider"></div>
+
+    <div style="display:flex;flex-direction:column;align-items:center;gap:10px;">
+      <button id="splash-btn" aria-label="دخول">✦</button>
+      <span class="splash-hint">🩸إضغط للمتابتة🩸</span>
     </div>
   </div>
 
@@ -520,7 +483,6 @@ html,body{
   </div>
 </div>
 
-<!-- ══ LOADER ══ -->
 <div id="loader-screen">
   <p class="loader-title">جاري دخول زب شادو في طيز جلجامشة 🍑🥒</p>
   <div class="loader-bar-wrap">
@@ -529,7 +491,6 @@ html,body{
   <p class="loader-percent" id="loader-pct">0%</p>
 </div>
 
-<!-- ══ APP ══ -->
 <div id="app">
   <div id="home-menu"></div>
 
@@ -556,7 +517,6 @@ html,body{
 </div>
 
 <script>
-/* ══ STARS ══ */
 (function(){
   const c=document.getElementById('stars-global');
   function draw(){
@@ -574,7 +534,6 @@ html,body{
   draw();window.addEventListener('resize',draw);
 })();
 
-/* ══ SPLASH GARDEN ══ */
 (function(){
   const garden=document.getElementById('splash-garden');
   const particles=document.getElementById('splash-particles');
@@ -614,7 +573,6 @@ html,body{
   }
 })();
 
-/* ══ SPLASH → LOADER → APP ══ */
 (function(){
   const splash=document.getElementById('splash');
   const splashBtn=document.getElementById('splash-btn');
@@ -656,15 +614,14 @@ html,body{
   }
 })();
 
-/* ══ بيانات القائمة ══ */
 const MENU_ITEMS=[
-  {id:'news',       icon:'📰', label:'أحدث الأخبار',  badge:3, file:'news.js',       global:'NewsSection'       },
-  {id:'videos',     icon:'🎬', label:'إبادة الحية',    badge:1, file:'videos.js',     global:'VideosSection'     },
-  {id:'photos',     icon:'🖼', label:'دعس وفضائح',     badge:5, file:'photos.js',     global:'PhotosSection'     },
-  {id:'blogs',      icon:'📝', label:'مدونات',          badge:2, file:'blogs.js',      global:'BlogsSection'      },
-  {id:'links',      icon:'🔗', label:'روابط',           badge:0, file:'links.js',      global:'LinksSection'      },
-  {id:'info',       icon:'ℹ️', label:'معلومات',         badge:0, file:'info.js',       global:'InfoSection'       },
-  {id:'supporters', icon:'💖', label:'من دعموني',       badge:0, file:'supporters.js', global:'SupportersSection' },
+  {id:'news',       icon:'📰', label:'أحدث الأخبار',  file:'news.js',       global:'NewsSection'       },
+  {id:'videos',     icon:'🎬', label:'إبادة الحية',    file:'videos.js',     global:'VideosSection'     },
+  {id:'photos',     icon:'🖼', label:'دعس وفضائح',     file:'photos.js',     global:'PhotosSection'     },
+  {id:'blogs',      icon:'📝', label:'مدونات',          file:'blogs.js',      global:'BlogsSection'      },
+  {id:'links',      icon:'🔗', label:'روابط',           file:'links.js',      global:'LinksSection'      },
+  {id:'info',       icon:'ℹ️', label:'معلومات',         file:'info.js',       global:'InfoSection'       },
+  {id:'supporters', icon:'💖', label:'من دعموني',       file:'supporters.js', global:'SupportersSection' },
 ];
 
 const NOTIFICATIONS=[
@@ -676,16 +633,14 @@ const NOTIFICATIONS=[
 
 const HOME_AVATAR="https://i.imgur.com/S3dRPKW.jpg";
 
-/* ══ بناء القائمة الرئيسية ══ */
 function buildHomeMenu(){
   const menu=document.getElementById('home-menu');
   const avatarHTML=HOME_AVATAR
-    ?`<img class="home-avatar" src="${HOME_AVATAR}" alt="🌸 جلخامجة الوردية 🌸" onerror="this.outerHTML='<div class=home-avatar-ph></div>'">`
+    ?`<img class="home-avatar" src="${HOME_AVATAR}" alt="جلخامجة الوردية" onerror="this.outerHTML='<div class=home-avatar-ph></div>'">`
     :`<div class="home-avatar-ph"></div>`;
 
   const cardsHTML=MENU_ITEMS.map(item=>`
     <div class="menu-card" data-id="${item.id}" data-file="${item.file}" data-global="${item.global}" data-label="${item.label} ${item.icon}">
-      ${item.badge?`<span class="menu-card-badge">${item.badge}</span>`:''}
       <span class="menu-card-icon">${item.icon}</span>
       <span class="menu-card-label">${item.label}</span>
     </div>
@@ -694,7 +649,7 @@ function buildHomeMenu(){
   menu.innerHTML=`
     <div class="home-profile-wrap">
       ${avatarHTML}
-      <h1 class="home-name">🌸 جلخامجة الوردية 🌸</h1>
+      <h1 class="home-name">🌸جلجامشة الوردية🌸</h1>
       <p class="home-subtitle">اختر القسم الذي تريده</p>
     </div>
     <div class="menu-grid">${cardsHTML}</div>
@@ -753,7 +708,7 @@ function buildNotifFab(){
 }
 
 const loadedScripts = new Set();
-const checkedFiles  = new Map(); /* file → true (موجود) | false (غير موجود) */
+const checkedFiles  = new Map();
 
 function pulseCard(cardEl) {
   if (!cardEl) return;
@@ -763,17 +718,14 @@ function pulseCard(cardEl) {
 }
 
 function openSection(id, file, globalName, label, cardEl) {
-
   if (checkedFiles.get(file) === false) {
     pulseCard(cardEl);
     return;
   }
-
   if (checkedFiles.get(file) === true) {
     _doOpen(id, file, globalName, label, cardEl);
     return;
   }
-
   fetch(file, { method: 'HEAD' })
     .then(res => {
       if (res.ok) {
@@ -814,7 +766,6 @@ function _doOpen(id, file, globalName, label, cardEl) {
   }
 }
 
-
 document.getElementById('back-btn').addEventListener('click', closeSection);
 
 function closeSection(){
@@ -832,4 +783,4 @@ window.addEventListener('popstate', () => {
 });
 </script>
 </body>
-  </html>
+</html>
