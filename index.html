@@ -1,315 +1,4 @@
 <!DOCTYPE html>
-<html lang="ar">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Death Gang | عصابة الموت</title>
-
-<style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
-body{
-    font-family:Tahoma, Arial;
-    background:linear-gradient(#7a0000,#c10000);
-    color:#fff;
-    text-align:center;
-}
-
-/* صورة الرأس */
-.header img{
-    width:100%;
-    height:auto;
-    max-height:280px;
-    object-fit:cover;
-    display:block;
-}
-
-/* العنوان */
-.title{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:15px;
-    font-size:clamp(16px,4vw,22px);
-    font-weight:bold;
-}
-
-.line{
-    height:4px;
-    background:#00eaff;
-    margin:10px 0 20px 0;
-}
-
-/* الأزرار الدائرية */
-.circle-container{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(80px,1fr));
-    gap:20px;
-    padding:15px;
-    max-width:600px;
-    margin:auto;
-}
-
-.circle-btn{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    cursor:pointer;
-    transition:0.2s;
-}
-
-.circle-inner{
-    width:70px;
-    height:70px;
-    border-radius:50%;
-    background:linear-gradient(#7b00ff,#4a00aa);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:28px;
-    position:relative;
-    overflow:hidden;
-    box-shadow:0 0 10px #000;
-}
-
-.circle-inner img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
-
-.circle-btn span{
-    margin-top:5px;
-    font-size:14px;
-}
-
-/* المربعات */
-.box-container{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-    gap:15px;
-    padding:15px;
-    max-width:700px;
-    margin:auto;
-}
-
-.box-btn{
-    background:#000;
-    padding:25px 10px;
-    border-radius:15px;
-    border:2px solid #444;
-    cursor:pointer;
-    transition:0.2s;
-}
-
-.box-btn:hover{
-    background:#222;
-}
-
-/* القوائم لكل زر */
-.vip-menu{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.6);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:15px;
-    z-index:999;
-}
-
-.vip-box{
-    width:100%;
-    max-width:420px;
-    background:linear-gradient(180deg,#9b00c9,#6a007a);
-    border-radius:25px;
-    padding:20px;
-    position:relative;
-}
-
-.vip-header{
-    display:flex;
-    align-items:center;
-    gap:15px;
-}
-
-.vip-circle{
-    width:70px;
-    height:70px;
-    background:#ffeb3b;
-    color:#000;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:bold;
-    font-size:20px;
-    cursor:pointer;
-    transition:0.2s;
-}
-
-.vip-circle:hover{
-    transform:scale(1.1);
-}
-
-.vip-name{
-    font-size:18px;
-}
-
-.stars{
-    font-size:20px;
-    margin:15px 0;
-}
-
-.vip-desc{
-    margin:15px 0;
-    font-size:15px;
-}
-
-.close-btn{
-    background:#000;
-    color:#fff;
-    border:none;
-    padding:10px 20px;
-    border-radius:12px;
-    cursor:pointer;
-    margin-top:10px;
-}
-</style>
-</head>
-
-<body>
-
-<!-- صورة الرأس -->
-<div class="header">
-    <img src="20260211_003328.png" alt="Death Gang">
-</div>
-
-<!-- العنوان -->
-<div class="title">
-    <div>Death Gang</div>
-    <div>عصابة الموت</div>
-</div>
-
-<div class="line"></div>
-
-<!-- الأزرار الدائرية -->
-<div class="circle-container">
-    <div class="circle-btn" onclick="openMenu('vipMenu1')">
-        <div class="circle-inner"><img src="20260211_003328.png" alt="icon"></div>
-        <span>اسم 1</span>
-    </div>
-    <div class="circle-btn" onclick="openMenu('vipMenu2')">
-        <div class="circle-inner"><img src="20260211_003328.png" alt="icon"></div>
-        <span>اسم 2</span>
-    </div>
-    <div class="circle-btn" onclick="openMenu('vipMenu3')">
-        <div class="circle-inner"><img src="20260211_003328.png" alt="icon"></div>
-        <span>اسم 3</span>
-    </div>
-    <div class="circle-btn" onclick="openMenu('vipMenu4')">
-        <div class="circle-inner"><img src="20260211_003328.png" alt="icon"></div>
-        <span>اسم 4</span>
-    </div>
-</div>
-
-<div class="line"></div>
-
-<!-- المربعات -->
-<div class="box-container">
-    <div class="box-btn" onclick="openPage('box1/index.html')">نافذة 1</div>
-    <div class="box-btn" onclick="openPage('box2/index.html')">نافذة 2</div>
-    <div class="box-btn" onclick="openPage('box3/index.html')">نافذة 3</div>
-    <div class="box-btn" onclick="openPage('box4/index.html')">نافذة 4</div>
-</div>
-
-<!-- القوائم الخاصة بكل زر دائري -->
-<div id="vipMenu1" class="vip-menu" onclick="outsideClick(event,'vipMenu1')">
-  <div class="vip-box">
-    <div class="vip-header">
-      <div class="vip-circle" onclick="openVIP()">VIP</div>
-      <div class="vip-name" id="userName1">Shadow 1</div>
-    </div>
-    <hr>
-    <div class="stars">⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐</div>
-    <hr>
-    <div class="vip-desc" id="vipDesc1">وصف القائمة 1</div>
-    <button class="close-btn" onclick="closeMenu('vipMenu1')">إغلاق</button>
-  </div>
-</div>
-
-<div id="vipMenu2" class="vip-menu" onclick="outsideClick(event,'vipMenu2')">
-  <div class="vip-box">
-    <div class="vip-header">
-      <div class="vip-circle" onclick="openVIP()">VIP</div>
-      <div class="vip-name" id="userName2">Shadow 2</div>
-    </div>
-    <hr>
-    <div class="stars">⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐</div>
-    <hr>
-    <div class="vip-desc" id="vipDesc2">وصف القائمة 2</div>
-    <button class="close-btn" onclick="closeMenu('vipMenu2')">إغلاق</button>
-  </div>
-</div>
-
-<div id="vipMenu3" class="vip-menu" onclick="outsideClick(event,'vipMenu3')">
-  <div class="vip-box">
-    <div class="vip-header">
-      <div class="vip-circle" onclick="openVIP()">VIP</div>
-      <div class="vip-name" id="userName3">Shadow 3</div>
-    </div>
-    <hr>
-    <div class="stars">⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐</div>
-    <hr>
-    <div class="vip-desc" id="vipDesc3">وصف القائمة 3</div>
-    <button class="close-btn" onclick="closeMenu('vipMenu3')">إغلاق</button>
-  </div>
-</div>
-
-<div id="vipMenu4" class="vip-menu" onclick="outsideClick(event,'vipMenu4')">
-  <div class="vip-box">
-    <div class="vip-header">
-      <div class="vip-circle" onclick="openVIP()">VIP</div>
-      <div class="vip-name" id="userName4">Shadow 4</div>
-    </div>
-    <hr>
-    <div class="stars">⭐ ⭐ ⭐ ⭐ ⭐ ⭐ ⭐</div>
-    <hr>
-    <div class="vip-desc" id="vipDesc4">وصف القائمة 4</div>
-    <button class="close-btn" onclick="closeMenu('vipMenu4')">إغلاق</button>
-  </div>
-</div>
-
-<script>
-function openMenu(id){
-    document.getElementById(id).style.display='flex';
-}
-
-function closeMenu(id){
-    document.getElementById(id).style.display='none';
-}
-
-function outsideClick(e,id){
-    if(e.target.id === id){
-        closeMenu(id);
-    }
-}
-
-function openVIP(){
-    window.location.href='vip/pass.html';
-}
-
-function openPage(path){
-    window.location.href=path;
-}
-</script>
-
-</body>
-</ht<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8"/>
@@ -797,7 +486,7 @@ html,body{
 <body>
 
 <audio id="bg-audio" loop preload="auto">
-  <source src="🎵T🎵H🎵R🎵.ogg" type="audio/ogg"/>
+  <source src="⚜️F⚜️I⚜️L⚜️E⚜️S⚜️/⚜️🎶⚜️/🎵T🎵H🎵R🎵.ogg" type="audio/ogg"/>
 </audio>
 <canvas id="stars-global"></canvas>
 
@@ -808,19 +497,21 @@ html,body{
 
   <div class="splash-center">
     <div class="splash-rose">🌸</div>
+
     <div class="glitch-wrap">
-      <span class="glitch-line gl4">اعزائي الكرام</span>
+      <span class="glitch-line gl4">🔱 أهلا بك عزيزي المشاهد 🔱</span>
       <span class="glitch-line gl2">♤</span>
-      <span class="glitch-line gl1">اهلااا بكم</span>
+      <span class="glitch-line gl1">هاذا المكان لدار دعارة تعرض فيه مؤخرة جلجامشة الخانزة 🤧 وزب شادو الذي اخترق أحشائها 🫢</span>
       <span class="glitch-line gl2">♤</span>
-      <span class="glitch-line gl1">اهلااا 😂😂😂</span>
+      <span class="glitch-line gl1">مجرد بليدية ذات مصدر كورونا في الجزائر تثرثر وتنبح على منصات تواصل اجتماعي وتقلك انا هاكر 💩</span>
       <span class="glitch-line gl2">♤</span>
       <span class="glitch-line gl1">🔍 باقي المعلومات سا تجدونها داخل الموقع 🔍</span>
       <span class="glitch-line gl1">إضغط على زر 🔥 للمتابعة</span>
     </div>
+
     <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
-      <button id="splash-btn" aria-label="دخول">🔥</button>
-      <span class="glitch-line gl1">🩸 ادخل ادخل برك 🩸</span>
+      <button id="splash-btn" aria-label="">🔥</button>
+      <span class="glitch-line gl1"></span>
     </div>
   </div>
 
@@ -831,7 +522,7 @@ html,body{
 
 <!-- ══ LOADER ══ -->
 <div id="loader-screen">
-  <p class="loader-title">جاري التحميل ....</p>
+  <p class="loader-title">جاري دخول زب شادو في طيز جلجامشة 🍑🥒</p>
   <div class="loader-bar-wrap">
     <div class="loader-bar-fill" id="loader-fill"></div>
   </div>
@@ -1016,7 +707,6 @@ function buildHomeMenu(){
   });
 }
 
-/* ══ زر الإشعارات FAB ══ */
 function buildNotifFab(){
   const fab=document.getElementById('notif-fab');
   const badge=document.getElementById('notif-fab-badge');
@@ -1062,11 +752,6 @@ function buildNotifFab(){
   renderBadge();
 }
 
-/* ══════════════════════════════════════
-   فتح قسم — يفحص الملف أولاً
-   إذا ما وجد: نبضة على الكارت فقط، لا تفتح أي شيء
-   إذا وجد: تفتح الصفحة وتحمّل الملف
-══════════════════════════════════════ */
 const loadedScripts = new Set();
 const checkedFiles  = new Map(); /* file → true (موجود) | false (غير موجود) */
 
@@ -1079,19 +764,16 @@ function pulseCard(cardEl) {
 
 function openSection(id, file, globalName, label, cardEl) {
 
-  /* إذا سبق فحصه وهو غير موجود → نبضة فقط */
   if (checkedFiles.get(file) === false) {
     pulseCard(cardEl);
     return;
   }
 
-  /* إذا سبق فحصه وهو موجود → افتح مباشرة */
   if (checkedFiles.get(file) === true) {
     _doOpen(id, file, globalName, label, cardEl);
     return;
   }
 
-  /* أول مرة → افحص الملف */
   fetch(file, { method: 'HEAD' })
     .then(res => {
       if (res.ok) {
@@ -1132,7 +814,7 @@ function _doOpen(id, file, globalName, label, cardEl) {
   }
 }
 
-/* ══ زر الرجوع ══ */
+
 document.getElementById('back-btn').addEventListener('click', closeSection);
 
 function closeSection(){
@@ -1150,5 +832,4 @@ window.addEventListener('popstate', () => {
 });
 </script>
 </body>
-    </html>>
-    </html>
+  </html>
